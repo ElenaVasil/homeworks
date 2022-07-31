@@ -15,14 +15,30 @@ function solveEquation(a, b, c) {
   } else {
     arr = [];
   }
-
   return arr; // array
-}
-
+};
 function calculateTotalMortgage(percent, contribution, amount, date) {
   let totalAmount;
-
   // код для задачи №2 писать здесь
-
+  if (isNaN(percent)) {
+    return "Параметр "Процентная ставка" содержит неправильное значение "${percent}"";
+  }
+  if (isNaN(contribution)) {
+    return "Параметр "Начальный взнос" содержит неправильное значение "${contribution}"";
+  }
+  if (isNaN(amount)) {
+    return "Параметр "Общая стоимость" содержит неправильное значение "${amount}"";
+  }
+  let bodyCredit = amount - contribution;
+  function monthDiff(dateFrom, dateTo) {
+ return dateTo.getMonth() - dateFrom.getMonth() + 
+   (12 * (dateTo.getFullYear() - dateFrom.getFullYear()))
+}
+  let period = monthDiff(new Date(), date);
+  let payment; 
+  let P = percent/100/12;
+  payment = bodyCredit * (P + (P / (((1 + P)^period) - 1)));
+  totalAmount = (amount + payment*period).toFixed(2);
   return totalAmount;
+  //console.log(totalAmount);
 }
